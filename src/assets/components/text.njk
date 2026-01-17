@@ -1,0 +1,19 @@
+---
+# A simple text block
+
+# Required fields
+title: Text
+
+# Default Values
+textContent: "Lorem ipsum dolor sit amet, **consectetur adipiscing elit**, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+
+# CMS fields
+cms:
+  - label: "Text Content"
+    name: "textContent"
+    widget: "markdown"
+---
+
+<section class="component component-{{ title | slugify }}">
+  {{- textContent | markdown | safe -}}
+</section>

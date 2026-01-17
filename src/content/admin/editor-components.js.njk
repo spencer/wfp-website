@@ -1,0 +1,49 @@
+---
+eleventyExcludeFromCollections: true
+permalink: "/admin/editor-components.js"
+layout: false
+---
+
+const componentData = [
+{% for component in collections.components %}
+  {
+    name: "{{ component.data.title | slugify }}",
+    label: "{{ component.data.title }}",
+    fields: {{ component.data.cms | dump | safe }}
+  },
+{% endfor %}
+];
+
+componentData.forEach(data => {
+  window.CMS.registerEditorComponent({
+    id: `${data.name}-component`,
+    label: data.label,
+    fields: data.fields,
+    pattern: new RegExp(
+      String.raw`^\{\{\-?\s*\{(?=[^}]*\n?"type":\s*"${data.name}")([\s\S]*?)\}\s*\|\s*renderComponent\s*\|\s*safe\s*\-?\}\}$`
+    ),
+
+    fromBlock: function(match) {
+      let props = {};
+      try {
+        props = JSON.parse('{' + match[1].trim() + '}');
+      } catch (e) {
+        console.error('Error parsing block JSON:', match[1], e);
+        return {};
+      }
+      return props;
+    },
+
+    toBlock: function(obj) {
+      // Serialize all field values (not just obj.props)
+      var json = JSON.stringify(obj, null, 2);
+      // Add a line break before the type as the first json object key
+      json = json.replace(/^{/, '{\n"type": "' + data.name + '",');
+      return '{\{- ' + json + ' | renderComponent | safe -}\}';
+    },
+
+    toPreview: function(obj) {
+      return `<div style='border:1px solid #ccc;padding:1em;'><strong>${data.label}</strong><pre>${JSON.stringify(obj.props, null, 2)}</pre></div>`;
+    }
+  });
+});

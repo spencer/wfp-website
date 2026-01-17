@@ -14,3 +14,9 @@ You can write content in HTML, [Markdown](https://github.com/adam-p/markdown-her
 ---
 
 <img src="/assets/images/favicon.svg" alt="Logo">
+{{-
+  {
+    "type": "text",
+    "textContent": "Hello, world!"
+  } | renderComponent | safe
+-}}
