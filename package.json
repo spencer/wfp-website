@@ -1,11 +1,10 @@
 {
-  "name": "ZeroPoint",
+  "name": "wfp-website",
   "version": "2026.1",
   "description": "",
   "type": "module",
   "main": "index.html",
   "scripts": {
-    "pre🪐": "node .github/scripts/zeropoint-rebrand.js",
     "🪐": "cross-env ELEVENTY_ENV=development eleventy --serve",
     "🚧": "cross-env ELEVENTY_ENV=staging eleventy",
     "🚀": "cross-env ELEVENTY_ENV=production eleventy",
@@ -19,7 +18,7 @@
     "type": "git",
     "url": "git+project_urlname"
   },
-  "author": "MWDelaney",
+  "author": "spencer",
   "license": "MIT",
   "browserslist": [
     "last 2 versions"
@@ -29,6 +28,7 @@
     "@11ty/eleventy-img": "^6.0.2",
     "@eslint/js": "^9.11.1",
     "cross-env": "^7.0.3",
+    "eleventy-plugin-reusable-components": "^1.0.1",
     "esbuild": "^0.25.2",
     "esbuild-sass-plugin": "^3.3.1",
     "eslint": "^9.11.1",
