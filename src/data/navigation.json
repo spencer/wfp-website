@@ -3,7 +3,8 @@
     {
       "text": "Home",
       "url": "/",
-      "external": false
+      "external": false,
+      "subitems": []
     },
     {
       "text": "Search",

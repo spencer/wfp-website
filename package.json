@@ -7,12 +7,14 @@
   "scripts": {
     "🪐": "cross-env ELEVENTY_ENV=development eleventy --serve",
     "🚧": "cross-env ELEVENTY_ENV=staging eleventy",
-    "🚀": "cross-env ELEVENTY_ENV=production eleventy",
-    "dev": "npm run 🪐",
+    "🚀": "cross-env ELEVENTY_ENV=production NODE_ENV=production eleventy",
+    "tailwind": "tailwindcss -i src/assets/styles/styles.css -o public/assets/styles/styles.css",
+    "tailwind:watch": "tailwindcss -i src/assets/styles/styles.css -o public/assets/styles/styles.css --watch",
+    "dev": "concurrently \"npm run 🪐\" \"npm run tailwind:watch\"",
     "staging": "npm run 🚧",
-    "production": "npm run 🚀",
+    "production": "npm run 🚀 && npm run tailwind",
     "start": "npm run dev",
-    "build": "npm run production"
+    "build": "cross-env NODE_ENV=production npm run production"
   },
   "repository": {
     "type": "git",
@@ -27,17 +29,24 @@
     "@11ty/eleventy": "^3.1.0",
     "@11ty/eleventy-img": "^6.0.2",
     "@eslint/js": "^9.11.1",
+    "@tailwindcss/nesting": "^0.0.0-insiders.565cd3e",
+    "concurrently": "^9.2.1",
     "cross-env": "^7.0.3",
     "eleventy-plugin-reusable-components": "^1.0.1",
     "esbuild": "^0.25.2",
-    "esbuild-sass-plugin": "^3.3.1",
     "eslint": "^9.11.1",
     "globals": "^15.9.0",
     "js-beautify": "^1.15.0",
+    "js-yaml": "^4.1.1",
     "markdown-it": "^14.1.0",
     "pagefind": "^1.4.0",
     "stylelint": "^16.24.0",
-    "stylelint-config-standard-scss": "^15.0.1",
-    "stylelint-scss": "^6.12.1"
+    "tailwindcss": "^3.4.1"
+  },
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.1.18",
+    "autoprefixer": "^10.4.23",
+    "postcss": "^8.5.6",
+    "postcss-import": "^16.1.1"
   }
 }
